@@ -18,48 +18,48 @@ ERROR: package.json not found
 
 **The Solution:** Install Shakapacker BEFORE React on Rails, not after.
 
+## 📚 Documentation Guide
+
+This demo includes comprehensive documentation for both developers and AI coding agents:
+
+### 🚀 Quick Start
+- **[REACT_ON_RAILS_QUICKSTART.md](./REACT_ON_RAILS_QUICKSTART.md)** - Step-by-step installation guide with corrected sequence
+- **[docs/README.md](./docs/README.md)** - Quick reference for running the demo
+
+### 🏗️ Technical Deep Dives
+- **[docs/ARCHITECTURE_OVERVIEW.md](./docs/ARCHITECTURE_OVERVIEW.md)** - System design, bundle splitting, and component patterns
+- **[docs/SSR_DYNAMIC_IMPORTS_GUIDE.md](./docs/SSR_DYNAMIC_IMPORTS_GUIDE.md)** - SSR implementation with skeleton loaders
+- **[docs/PRODUCTION_TESTING.md](./docs/PRODUCTION_TESTING.md)** - Development modes and testing strategies
+
 ## ✨ Features Demonstrated
 
 - ✅ **Auto-Registration** - Zero manual `ReactOnRails.register()` calls needed
-- ✅ **Bundle Splitting** - Lightweight (~50KB) vs Heavy (~2.7MB) component demos
+- ✅ **Bundle Splitting** - Lightweight (12.5KB) vs Heavy (1.1MB+) component demos
 - ✅ **File-System Based Detection** - Components auto-discovered from directory structure
-- ✅ **Server-Side Rendering (SSR)** - Both components render on server with `prerender: true`
-- ✅ **Dynamic Imports** - Heavy dependencies loaded asynchronously to prevent SSR issues
-- ✅ **Skeleton Loaders** - Prevent Flash of Unstyled Content (FOUC) during bundle loading
-- ✅ **Content Simulation** - Demonstrates loading props from Rails controllers (simulating database)
-- ✅ **Correct Installation Sequence** - Shakapacker first, then React on Rails
-- ✅ **Modern React Patterns** - Hooks, functional components, CSS modules
-- ✅ **Hot Module Replacement** - Live reloading during development
-- ✅ **Production vs Development Testing** - Documentation for both build modes
+- ✅ **Server-Side Rendering** - Both components work with SSR enabled
+- ✅ **Modern Development Tools** - Enhanced `bin/dev` script with 3 modes
+- ✅ **Production-Ready Patterns** - Dynamic imports, skeleton loaders, CSS modules
 
 ## 🚀 Quick Start
 
-### Prerequisites
-
-- Ruby 3.2+ 
-- Node.js 18+ 
-- Yarn 1.22+
-
-### Installation
-
 ```bash
-# Clone or navigate to this directory
-cd test-react-on-rails-v15-hello-world-on-rails-v8
-
 # Install dependencies
-bundle install
-yarn install
+bundle install && yarn install
 
-# Start development server (Rails + Webpack)
-bin/dev
+# Generate component webpack entries
+bundle exec rake react_on_rails:generate_packs
+
+# Start development server
+./bin/dev
+
+# Visit the demo
+open http://localhost:3000
 ```
 
-### 🌐 Try the Demo
+### 🌐 Demo Components
 
-Open your browser to:
-- **http://localhost:3000/** - HelloWorld component (lightweight ~50KB bundle)
-- **http://localhost:3000/hello_world** - Same HelloWorld component
-- **http://localhost:3000/heavy_markdown_editor** - HeavyMarkdownEditor component (heavy ~2.7MB bundle with live markdown editing)
+- **[HelloWorld](http://localhost:3000)** - Lightweight component (12.5KB bundle)
+- **[HeavyMarkdownEditor](http://localhost:3000/heavy_markdown_editor)** - Heavy component (1.1MB+ bundle with live markdown editing)
 
 ## 🏗️ Architecture Overview
 
