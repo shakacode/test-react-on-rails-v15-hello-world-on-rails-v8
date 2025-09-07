@@ -1,0 +1,2 @@
+module HeavyMarkdownEditorHelper
+end

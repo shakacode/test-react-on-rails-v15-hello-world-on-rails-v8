@@ -12,19 +12,19 @@
   font-size: 2rem;
   margin-bottom: 1rem;
   text-align: center;
-  border-bottom: 3px solid #e74c3c;
+  border-bottom: 3px solid #3498db;
   padding-bottom: 0.5rem;
 }
 
-.description {
-  color: #34495e;
-  font-size: 1.1rem;
+.subtitle {
+  color: #7f8c8d;
+  font-size: 1rem;
   margin-bottom: 2rem;
-  line-height: 1.6;
-  background-color: #e8f6f3;
-  padding: 1rem;
+  text-align: center;
+  background-color: #d4edda;
+  padding: 0.75rem;
   border-radius: 4px;
-  border-left: 4px solid #1abc9c;
+  border-left: 4px solid #28a745;
 }
 
 .formGroup {
@@ -50,8 +50,8 @@
 
 .input:focus {
   outline: none;
-  border-color: #e74c3c;
-  box-shadow: 0 0 5px rgba(231, 76, 60, 0.3);
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }
 
 .greeting {
@@ -62,7 +62,11 @@
   background-color: #fff;
   padding: 1rem;
   border-radius: 4px;
-  border: 2px solid #e74c3c;
+  border: 2px solid #3498db;
+}
+
+.greeting strong {
+  color: #2980b9;
 }
 
 .navigation {
@@ -71,7 +75,7 @@
 
 .link {
   display: inline-block;
-  background-color: #e74c3c;
+  background-color: #3498db;
   color: white;
   padding: 0.75rem 1.5rem;
   text-decoration: none;
@@ -81,6 +85,16 @@
 }
 
 .link:hover {
-  background-color: #c0392b;
+  background-color: #2980b9;
   transform: translateY(-1px);
+}
+
+.bundleInfo {
+  margin-top: 1rem;
+  color: #28a745;
+  font-size: 0.9rem;
+  background-color: #d4edda;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid #c3e6cb;
 }
