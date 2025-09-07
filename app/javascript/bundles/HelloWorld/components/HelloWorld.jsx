@@ -6,36 +6,38 @@ const HelloWorld = (props) => {
   const [name, setName] = useState(props.name);
 
   return (
-    <div>
-      <h3>Hello, {name}!</h3>
-      <hr />
-      <form>
-        <label className={style.bright} htmlFor="name">
-          Say hello to:
-          <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        </label>
-      </form>
-      <hr />
-      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-        <a 
-          href="/second_component" 
-          style={{
-            display: 'inline-block',
-            backgroundColor: '#007bff',
-            color: 'white',
-            padding: '0.75rem 1.5rem',
-            textDecoration: 'none',
-            borderRadius: '4px',
-            fontWeight: 'bold',
-            transition: 'background-color 0.3s ease'
-          }}
-          onMouseOver={(e) => e.target.style.backgroundColor = '#0056b3'}
-          onMouseOut={(e) => e.target.style.backgroundColor = '#007bff'}
-        >
-          → Go to Second Component
+    <div className={style.container}>
+      <h1 className={style.title}>Hello, {name}!</h1>
+      <p className={style.subtitle}>Welcome to React on Rails 15.0</p>
+      
+      <hr className={style.divider} />
+      
+      <div className={style.formSection}>
+        <form>
+          <label className={style.label} htmlFor="name">
+            <span className={style.bright}>Say hello to:</span>
+          </label>
+          <input 
+            id="name" 
+            type="text" 
+            value={name} 
+            onChange={(e) => setName(e.target.value)}
+            className={style.input}
+            placeholder="Enter your name..."
+          />
+        </form>
+        
+        <div className={style.greeting}>
+          Hello, <strong>{name}</strong>! 🎉
+        </div>
+      </div>
+
+      <div className={style.navigation}>
+        <a href="/second_component" className={style.navButton}>
+          → Explore Second Component
         </a>
-        <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '1rem' }}>
-          This demonstrates React on Rails component navigation and auto-registration.
+        <p className={style.navDescription}>
+          This demonstrates React on Rails component navigation and auto-registration with modern styling and smooth transitions.
         </p>
       </div>
     </div>
