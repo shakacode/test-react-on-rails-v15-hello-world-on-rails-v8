@@ -32,7 +32,7 @@ const HelloWorld = (props) => {
           → Try Heavy Markdown Editor
         </a>
         <div className={style.bundleInfo}>
-          <strong>Bundle Size:</strong> Minimal - just React basics (~50KB)
+          <strong>Bundle Size:</strong> Minimal - just React basics (10.0KB component + 2.5KB CSS)
         </div>
       </div>
     </div>

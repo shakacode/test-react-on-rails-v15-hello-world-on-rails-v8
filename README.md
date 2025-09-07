@@ -1,11 +1,12 @@
-# React on Rails Hello World Demo 🚀
+# React on Rails v15 Auto-Registration Demo 🚀
 
-A complete demonstration of React on Rails 15.0 with Rails 8, showcasing the **corrected installation sequence** that fixes the infamous "package.json not found" error.
+A complete demonstration of **React on Rails v15 auto-registration** with Rails 8, showcasing file-system-based component detection, bundle splitting, and the **corrected installation sequence** that fixes the infamous "package.json not found" error.
 
 ![React on Rails](https://img.shields.io/badge/React%20on%20Rails-15.0-blue)
 ![Rails](https://img.shields.io/badge/Rails-8.0.1-red)
 ![React](https://img.shields.io/badge/React-19.1.1-61DAFB)
 ![Shakapacker](https://img.shields.io/badge/Shakapacker-8.3.0-green)
+![Auto-Registration](https://img.shields.io/badge/Auto--Registration-✅-brightgreen)
 
 ## 🎯 What This Demo Solves
 
@@ -19,13 +20,17 @@ ERROR: package.json not found
 
 ## ✨ Features Demonstrated
 
+- ✅ **Auto-Registration** - Zero manual `ReactOnRails.register()` calls needed
+- ✅ **Bundle Splitting** - Lightweight (~50KB) vs Heavy (~2.7MB) component demos
+- ✅ **File-System Based Detection** - Components auto-discovered from directory structure
+- ✅ **Server-Side Rendering (SSR)** - Both components render on server with `prerender: true`
+- ✅ **Dynamic Imports** - Heavy dependencies loaded asynchronously to prevent SSR issues
+- ✅ **Skeleton Loaders** - Prevent Flash of Unstyled Content (FOUC) during bundle loading
+- ✅ **Content Simulation** - Demonstrates loading props from Rails controllers (simulating database)
 - ✅ **Correct Installation Sequence** - Shakapacker first, then React on Rails
-- ✅ **Bundle-Based Architecture** - Each component has its own webpack bundle
-- ✅ **Multiple Components** - HelloWorld and SecondComponent with navigation
 - ✅ **Modern React Patterns** - Hooks, functional components, CSS modules
 - ✅ **Hot Module Replacement** - Live reloading during development
-- ✅ **Professional Styling** - Gradient backgrounds, glassmorphism effects
-- ✅ **Bundle Separation** - Each component has its own webpack pack
+- ✅ **Production vs Development Testing** - Documentation for both build modes
 
 ## 🚀 Quick Start
 
@@ -52,53 +57,65 @@ bin/dev
 ### 🌐 Try the Demo
 
 Open your browser to:
-- **http://localhost:3000/** - HelloWorld component (root path)
+- **http://localhost:3000/** - HelloWorld component (lightweight ~50KB bundle)
 - **http://localhost:3000/hello_world** - Same HelloWorld component
-- **http://localhost:3000/second_component** - SecondComponent demo
+- **http://localhost:3000/heavy_markdown_editor** - HeavyMarkdownEditor component (heavy ~2.7MB bundle with live markdown editing)
 
 ## 🏗️ Architecture Overview
 
-### File Structure
+### Auto-Registration File Structure
 ```
 app/
 ├── controllers/
 │   ├── hello_world_controller.rb          # Rails controller for HelloWorld
-│   └── second_component_controller.rb     # Rails controller for SecondComponent
+│   ├── heavy_markdown_editor_controller.rb # Rails controller for HeavyMarkdownEditor
+│   └── heavy_markdown_editor_content.md   # Content file (simulates database)
 ├── javascript/
-│   ├── bundles/                           # React components organized by feature
-│   │   ├── HelloWorld/
-│   │   │   └── components/
-│   │   │       ├── HelloWorld.jsx         # Main React component
-│   │   │       ├── HelloWorld.module.css  # CSS modules styling
-│   │   │       └── HelloWorldServer.js    # Server-side rendering export
-│   │   └── SecondComponent/
-│   │       └── components/
-│   │           ├── SecondComponent.jsx
-│   │           ├── SecondComponent.module.css
-│   │           └── SecondComponentServer.js
-│   └── packs/                             # Webpack entry points
-│       ├── hello-world-bundle.js          # Bundle for HelloWorld
-│       ├── second-component-bundle.js     # Bundle for SecondComponent
-│       ├── server-bundle.js               # Server-side rendering bundle
-│       └── application.js                 # Main application bundle
+│   ├── src/                               # Auto-registration source directory 
+│   │   ├── HelloWorld/                    # Component name (directory)
+│   │   │   └── ror_components/            # Magic directory for auto-detection
+│   │   │       ├── HelloWorld.jsx         # Component implementation
+│   │   │       └── HelloWorld.module.css  # CSS modules styling
+│   │   └── HeavyMarkdownEditor/           # Heavy component demonstrating bundle splitting
+│   │       └── ror_components/
+│   │           ├── HeavyMarkdownEditor.jsx # Heavy component with dynamic imports
+│   │           └── HeavyMarkdownEditor.module.css
+│   ├── generated/                         # Auto-generated webpack entries  
+│   │   ├── HelloWorld.js                  # Generated by rake task
+│   │   ├── HeavyMarkdownEditor.js         # Generated by rake task
+│   │   └── server-bundle-generated.js     # Generated server bundle
+│   └── packs/                             # Manual webpack entries
+│       ├── application.js                 # Main application entry
+│       └── server-bundle.js               # Server rendering entry
 └── views/
     ├── hello_world/
-    │   └── index.html.erb                 # Rails view template
-    ├── second_component/
+    │   └── index.html.erb                 # Rails view template  
+    ├── heavy_markdown_editor/
     │   └── index.html.erb
     └── layouts/
-        ├── hello_world.html.erb           # Layout with hello-world-bundle
-        └── second_component.html.erb      # Layout with second-component-bundle
+        └── application.html.erb           # Unified layout (no component-specific layouts)
 ```
 
-### Component Registration Pattern
+### 🔥 Auto-Registration Magic
 
-Each component follows the same registration pattern:
+React on Rails v15 automatically detects components using **file-system-based discovery**:
 
-**Pack File (`hello-world-bundle.js`):**
+1. **Magic Directory**: `app/javascript/src/ComponentName/ror_components/`
+2. **Auto-Detection**: `rake react_on_rails:generate_packs` scans these directories  
+3. **Generated Entries**: Creates webpack entries in `app/javascript/generated/`
+4. **Zero Manual Registration**: No `ReactOnRails.register()` calls needed!
+5. **Bundle Splitting**: Each component gets its own optimized webpack bundle
+
+### Auto-Generated Registration Pattern
+
+React on Rails v15 **automatically generates** the registration code:
+
+**Generated File (`generated/HelloWorld.js`):**
 ```javascript
+// Auto-generated by rake react_on_rails:generate_packs - DO NOT EDIT!
 import ReactOnRails from 'react-on-rails';
-import HelloWorld from '../bundles/HelloWorld/components/HelloWorld';
+import * as HelloWorldModule from '../src/HelloWorld/ror_components/HelloWorld.module.css';
+import HelloWorld from '../src/HelloWorld/ror_components/HelloWorld';
 
 ReactOnRails.register({
   HelloWorld,
@@ -107,13 +124,23 @@ ReactOnRails.register({
 
 **Rails View (`index.html.erb`):**
 ```erb
-<%= react_component("HelloWorld", props: { name: "Stranger" }, prerender: false) %>
+<%= react_component("HelloWorld", props: @hello_world_props, prerender: true) %>
 ```
 
-**Layout (`hello_world.html.erb`):**
+**Unified Layout (`application.html.erb`):**
 ```erb
-<%= javascript_pack_tag 'hello-world-bundle' %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React on Rails v15</title>
+    <!-- No component-specific javascript_pack_tag needed! -->
+    <!-- Auto-registration handles bundle loading automatically -->
+  </head>
+  <body><%= yield %></body>
+</html>
 ```
+
+⚠️ **Key Difference**: With auto-registration, you don't need `javascript_pack_tag` in layouts. Bundles are loaded automatically when components render.
 
 ## 📋 The Critical Installation Sequence
 
@@ -124,7 +151,7 @@ bundle add react-on-rails          # ERROR: No package.json!
 rails generate react_on_rails:install
 ```
 
-### ✅ Correct Way (This Demo)
+### ✅ Correct Way (Auto-Registration)
 ```bash
 # 1. Create Rails app
 rails new my_app --skip-jbuilder
@@ -136,19 +163,31 @@ rails generate shakapacker:install
 
 # 3. THEN add React on Rails (package.json now exists)
 bundle add react-on-rails  
-rails generate react_on_rails:install --node-name=hello-world
+rails generate react_on_rails:install
 
 # 4. Install JavaScript dependencies
 yarn install
 
-# 5. Generate components and run
-rails generate react_on_rails:component HelloWorld
+# 5. Configure auto-registration in config/initializers/react_on_rails.rb
+# config.components_subdirectory = "ror_components"
+# config.auto_load_bundle = true  
+# config.server_bundle_js_file = "server-bundle.js"
+
+# 6. Create component directories (no generators needed!)
+mkdir -p app/javascript/src/HelloWorld/ror_components
+
+# 7. Generate webpack entries for auto-registration
+rake react_on_rails:generate_packs
+
+# 8. Run development server
 bin/dev
 ```
 
-## 🎨 Modern React Features
+## 📦 Bundle Splitting Demo
 
-### Functional Components with Hooks
+This app demonstrates **intelligent bundle splitting** with two contrasting components:
+
+### 🪶 Lightweight HelloWorld (~50KB)
 ```jsx
 import React, { useState } from 'react';
 import * as style from './HelloWorld.module.css';
@@ -171,6 +210,45 @@ const HelloWorld = (props) => {
 export default HelloWorld;
 ```
 
+**Dependencies**: Only React core (~50KB total)
+**Load Time**: Instant
+**Use Case**: Fast-loading components with minimal functionality
+
+### 🏋️ Heavy HeavyMarkdownEditor (~2.7MB)
+```jsx  
+import React, { useState, useEffect } from 'react';
+import * as style from './HeavyMarkdownEditor.module.css';
+
+const HeavyMarkdownEditor = (props) => {
+  const [isClient, setIsClient] = useState(false);
+  const [MarkdownComponent, setMarkdownComponent] = useState(null);
+
+  useEffect(() => {
+    const loadMarkdown = async () => {
+      // Dynamic imports prevent SSR issues
+      const [{ default: ReactMarkdown }, { default: remarkGfm }] = await Promise.all([
+        import('react-markdown'),
+        import('remark-gfm')
+      ]);
+      
+      setMarkdownComponent(() => ({ children }) => (
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{children}</ReactMarkdown>
+      ));
+      setIsClient(true);
+    };
+
+    loadMarkdown();
+  }, []);
+
+  // ... rest of component with skeleton loading
+};
+```
+
+**Dependencies**: React + ReactMarkdown + Remark GFM + 58+ transitive dependencies
+**Bundle Size**: ~2.7MB total (shared vendor chunks)
+**Load Time**: ~200ms+ (with skeleton loader for smooth UX)
+**Use Case**: Feature-rich components with heavy functionality
+
 ### CSS Modules with Modern Styling
 ```css
 /* HelloWorld.module.css */
@@ -192,25 +270,76 @@ export default HelloWorld;
 ### Hot Module Replacement
 Changes to React components automatically reload in the browser without losing state.
 
-### Bundle-Based Component Architecture
-This demo showcases a powerful pattern where each component has its own webpack bundle:
+### Auto-Registration Bundle Architecture
+This demo showcases React on Rails v15's **file-system-based auto-registration**:
 
 **Key Benefits:**
-- **🚀 No `append_javascript_pack_tag` needed** - Each layout directly includes only its required bundle
-- **📦 Code Splitting** - Components load independently, reducing initial page load
-- **⚡ Optimized Caching** - Browser can cache unchanged component bundles separately  
+- **🚀 Zero Manual Registration** - Components automatically available when placed in `ror_components/`
+- **📦 Intelligent Bundle Splitting** - Each component gets its own optimized webpack bundle
+- **⚡ Automatic Bundle Loading** - No `javascript_pack_tag` needed in layouts
 - **🔒 Component Isolation** - Each component's dependencies are self-contained
-- **📈 Scalability** - Easy to add new components without affecting existing ones
-- **🛠️ Maintainability** - Clear separation of concerns, easier to debug and update
+- **📈 Scalability** - Add new components by creating directories, no configuration needed
+- **🛠️ Maintainability** - File-system structure matches component organization
 
-**How It Works:**
-1. Each component gets its own pack file (e.g., `hello-world-bundle.js`)
-2. Pack file registers only the specific component with `ReactOnRails.register()`
-3. Layout includes the specific bundle with `javascript_pack_tag 'component-bundle'`
-4. No need for a monolithic application bundle or complex pack tag management
+**How Auto-Registration Works:**
+1. Place component in `app/javascript/src/ComponentName/ror_components/Component.jsx`
+2. Run `rake react_on_rails:generate_packs` to scan and generate webpack entries
+3. Use `<%= react_component("ComponentName") %>` in Rails views
+4. Bundle automatically loads when component renders - no layout changes needed!
 
 ### Modern JSX Transform
 Uses React 17+ automatic JSX runtime (no `import React` needed).
+
+### Testing Development and Production Builds
+
+We've enhanced the `bin/dev` script to support three different modes:
+
+**Development Mode** (with HMR, default):
+```bash
+# Default mode - HMR enabled but may have FOUC
+bin/dev
+open http://localhost:3000
+```
+
+**Static Development Mode** (no HMR, no FOUC):
+```bash
+# Development environment but with extracted CSS (no FOUC)
+bin/dev static
+open http://localhost:3000
+```
+
+**Production-Assets Mode** (fully optimized):
+```bash
+# Production-optimized bundles
+bin/dev prod
+open http://localhost:3001
+
+# Or use the full command name
+bin/dev production-assets
+```
+
+**Help**:
+```bash
+bin/dev help
+```
+
+**Mode Comparison**:
+
+| Aspect | Development (HMR) | Static Development | Production-Assets |
+|--------|-------------------|-------------------|-------------------|
+| **FOUC** | ❌ May occur | ✅ No FOUC | ✅ No FOUC |
+| **HMR** | ✅ Live reload | ❌ Manual refresh | ❌ Manual refresh |
+| **CSS** | CSS modules async | Extracted files | Extracted + minified |
+| **Bundle Size** | Full + source maps | Full + source maps | Minified + optimized |
+| **Build Speed** | Fastest | Fast | Slowest |
+| **Environment** | Development | Development | Production |
+| **Port** | 3000 | 3000 | 3001 |
+| **Use Case** | Active development | Testing without FOUC | Pre-deploy testing |
+
+**Cleanup after testing production**:
+```bash
+rm -rf public/packs && bin/dev
+```
 
 ## 🌟 Key Technical Decisions
 
@@ -219,19 +348,27 @@ Uses React 17+ automatic JSX runtime (no `import React` needed).
 - React on Rails generator expects `package.json` to exist
 - This sequence prevents the installation error
 
-### Why Bundle-Per-Component Architecture?
-- **🚀 No Pack Tag Management**: Layouts directly include their bundle - no `append_javascript_pack_tag` complexity
-- **⚡ Performance**: Load only the JavaScript needed for each page
-- **📦 Better Caching**: Browser caches component bundles independently
-- **🔧 Modularity**: Each component is completely self-contained with its dependencies
-- **📈 Scalability**: Adding new components doesn't affect existing bundle sizes
-- **🛠️ Developer Experience**: Clear component boundaries, easier debugging and testing
+### Why Auto-Registration?
+- **🚀 Zero Configuration**: No manual `ReactOnRails.register()` calls needed
+- **📁 File-System Based**: Directory structure defines component organization
+- **🔄 Automatic Detection**: `rake react_on_rails:generate_packs` scans and generates entries
+- **⚡ Bundle Optimization**: Each component gets its own webpack bundle automatically
+- **🛠️ Developer Experience**: Add components by creating directories, not configuration files
+- **📈 Scalability**: Easy to add hundreds of components without manual registration overhead
+
+### Why Bundle Splitting?
+- **⚡ Performance**: Lightweight components load instantly (~50KB), heavy ones load on-demand (~2.7MB)
+- **📦 Intelligent Caching**: Browser caches shared vendor chunks across all components
+- **🔒 Isolation**: Component dependencies don't affect other components
+- **📊 Analytics**: Easy to measure individual component performance impact
+- **🚀 Progressive Loading**: Critical components load first, features load as needed
 
 ### Why CSS Modules?
 - **Scoped styles**: No global CSS conflicts
 - **Component-based**: Styles live with components
-- **TypeScript support**: Auto-completion for class names
+- **Auto-completion**: IDE support for class names
 - **Bundle optimization**: Unused styles are eliminated
+- **SSR compatible**: Styles work with server-side rendering
 
 ## 📊 Version Information
 
