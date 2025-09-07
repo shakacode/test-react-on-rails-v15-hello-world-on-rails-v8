@@ -20,7 +20,7 @@ ERROR: package.json not found
 ## ✨ Features Demonstrated
 
 - ✅ **Correct Installation Sequence** - Shakapacker first, then React on Rails
-- ✅ **Component Auto-Registration** - No manual ReactOnRails.register() calls needed
+- ✅ **Bundle-Based Architecture** - Each component has its own webpack bundle
 - ✅ **Multiple Components** - HelloWorld and SecondComponent with navigation
 - ✅ **Modern React Patterns** - Hooks, functional components, CSS modules
 - ✅ **Hot Module Replacement** - Live reloading during development
@@ -192,12 +192,22 @@ export default HelloWorld;
 ### Hot Module Replacement
 Changes to React components automatically reload in the browser without losing state.
 
-### Bundle Separation  
-Each component has its own webpack bundle, allowing for:
-- Independent loading
-- Code splitting
-- Optimized caching
-- Modular architecture
+### Bundle-Based Component Architecture
+This demo showcases a powerful pattern where each component has its own webpack bundle:
+
+**Key Benefits:**
+- **🚀 No `append_javascript_pack_tag` needed** - Each layout directly includes only its required bundle
+- **📦 Code Splitting** - Components load independently, reducing initial page load
+- **⚡ Optimized Caching** - Browser can cache unchanged component bundles separately  
+- **🔒 Component Isolation** - Each component's dependencies are self-contained
+- **📈 Scalability** - Easy to add new components without affecting existing ones
+- **🛠️ Maintainability** - Clear separation of concerns, easier to debug and update
+
+**How It Works:**
+1. Each component gets its own pack file (e.g., `hello-world-bundle.js`)
+2. Pack file registers only the specific component with `ReactOnRails.register()`
+3. Layout includes the specific bundle with `javascript_pack_tag 'component-bundle'`
+4. No need for a monolithic application bundle or complex pack tag management
 
 ### Modern JSX Transform
 Uses React 17+ automatic JSX runtime (no `import React` needed).
@@ -209,11 +219,13 @@ Uses React 17+ automatic JSX runtime (no `import React` needed).
 - React on Rails generator expects `package.json` to exist
 - This sequence prevents the installation error
 
-### Why Separate Bundles?
-- **Modularity**: Each component is self-contained
-- **Performance**: Load only what's needed per page
-- **Maintainability**: Clear separation of concerns
-- **Scalability**: Easy to add new components
+### Why Bundle-Per-Component Architecture?
+- **🚀 No Pack Tag Management**: Layouts directly include their bundle - no `append_javascript_pack_tag` complexity
+- **⚡ Performance**: Load only the JavaScript needed for each page
+- **📦 Better Caching**: Browser caches component bundles independently
+- **🔧 Modularity**: Each component is completely self-contained with its dependencies
+- **📈 Scalability**: Adding new components doesn't affect existing bundle sizes
+- **🛠️ Developer Experience**: Clear component boundaries, easier debugging and testing
 
 ### Why CSS Modules?
 - **Scoped styles**: No global CSS conflicts
