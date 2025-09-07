@@ -2,12 +2,15 @@
 
 This application demonstrates React on Rails v15's **file-system-based automated bundle generation** with intelligent bundle splitting and server-side rendering.
 
+📍 **Repository**: https://github.com/shakacode/test-react-on-rails-v15-hello-world-on-rails-v8
+
 ## 🚀 Quick Start
 
-1. **Install dependencies**: `bundle && yarn`
-2. **Generate component packs**: `bundle exec rake react_on_rails:generate_packs`
-3. **Start development server**: `./bin/dev`
-4. **Visit the demo**: http://localhost:3000
+1. **Clone**: `git clone https://github.com/shakacode/test-react-on-rails-v15-hello-world-on-rails-v8.git`
+2. **Install dependencies**: `bundle && yarn`
+3. **Generate component packs**: `bundle exec rake react_on_rails:generate_packs`
+4. **Start development server**: `./bin/dev`
+5. **Visit the demo**: http://localhost:3000
 
 ## 📋 Documentation
 

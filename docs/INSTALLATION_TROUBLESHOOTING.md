@@ -246,7 +246,7 @@ default:
 
 If you encounter issues not covered here:
 
-1. **Check the demo app:** [test-react-on-rails-v15-hello-world](https://github.com/shakacode/react_on_rails/tree/master/spec/dummy)
+1. **Check the demo app:** [test-react-on-rails-v15-hello-world-on-rails-v8](https://github.com/shakacode/test-react-on-rails-v15-hello-world-on-rails-v8)
 2. **Review commit history** for step-by-step implementation
 3. **Compare your setup** with the working example
 4. **Open an issue** with specific error messages and environment details

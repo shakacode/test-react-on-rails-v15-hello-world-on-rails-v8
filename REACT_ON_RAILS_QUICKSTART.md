@@ -2,6 +2,8 @@
 
 This documentation shows how to create a React on Rails application using **React on Rails v15 auto-registration** with the **corrected installation sequence** that fixes the "package.json not found" error.
 
+📍 **Working Demo**: https://github.com/shakacode/test-react-on-rails-v15-hello-world-on-rails-v8
+
 ## Overview
 
 This sample app demonstrates:

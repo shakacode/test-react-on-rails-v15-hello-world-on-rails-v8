@@ -44,6 +44,10 @@ This demo includes comprehensive documentation for both developers and AI coding
 ## 🚀 Quick Start
 
 ```bash
+# Clone the demo repository
+git clone https://github.com/shakacode/test-react-on-rails-v15-hello-world-on-rails-v8.git
+cd test-react-on-rails-v15-hello-world-on-rails-v8
+
 # Install dependencies
 bundle install && yarn install
 
@@ -85,6 +89,7 @@ This demo showcases React on Rails v15's **file-system-based auto-registration**
 - **[React on Rails Documentation](https://shakacode.gitbook.io/react-on-rails/)** - Official docs
 - **[Shakapacker Documentation](https://github.com/shakacode/shakapacker)** - Webpack integration
 - **[React on Rails Pro](https://www.shakacode.com/react-on-rails-pro)** - Advanced features
+- **[Demo Repository](https://github.com/shakacode/test-react-on-rails-v15-hello-world-on-rails-v8)** - This complete working example
 
 ## 📊 Performance Metrics
 
