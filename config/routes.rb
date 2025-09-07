@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "hello_world#index"
   get 'hello_world', to: 'hello_world#index'
   get 'heavy_markdown_editor', to: 'heavy_markdown_editor#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
