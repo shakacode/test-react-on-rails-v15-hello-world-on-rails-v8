@@ -11,8 +11,11 @@ This application demonstrates React on Rails v15's **file-system-based automated
 
 ## 📋 Documentation
 
+### Getting Started
+- **[Installation Troubleshooting](./INSTALLATION_TROUBLESHOOTING.md)** - Fix common setup issues including "package.json not found"
+
 ### Core Concepts
-- **[Architecture Overview](./ARCHITECTURE_OVERVIEW.md)** - High-level system design, bundle splitting, and component patterns
+- **[Architecture Overview](./ARCHITECTURE_OVERVIEW.md)** - System design, bundle splitting, and component patterns
 
 ### Technical Implementation  
 - **[SSR + Dynamic Imports Guide](./SSR_DYNAMIC_IMPORTS_GUIDE.md)** - Solving FOUC with skeleton loaders and progressive enhancement
