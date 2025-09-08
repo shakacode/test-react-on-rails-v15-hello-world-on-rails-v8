@@ -36,8 +36,8 @@ bundle exec rails generate shakapacker:install
 bundle add react-on-rails
 bundle exec rails generate react_on_rails:install
 
-# 4. Install dependencies with yarn (Shakapacker's default)
-yarn install
+# 4. Install dependencies with npm
+npm install
 
 # 5. Enable auto-registration in config/initializers/react_on_rails.rb
 # Add these lines:
@@ -334,7 +334,7 @@ bin/dev
 This repository's commits document each step:
 
 1. **Initial commit**: Rails 8 + React on Rails 15.0 + Shakapacker 8.3 hello world app
-2. **Switch to yarn**: Remove npm lockfile, use yarn (Shakapacker default)  
+2. **Switch to npm**: Remove yarn lockfile, use npm as default  
 3. **Root redirect**: Add root path redirect to hello_world
 4. **Second component**: Create SecondComponent to demonstrate auto-registration
 5. **Navigation**: Add navigation link between components
@@ -360,8 +360,8 @@ You can verify the installation sequence works by:
 - **Check**: Routes are configured correctly
 
 ### Webpack Compilation Errors  
-- **Check**: yarn.lock exists (not package-lock.json)
-- **Check**: All dependencies are installed via `yarn install`
+- **Check**: package-lock.json exists (not yarn.lock)
+- **Check**: All dependencies are installed via `npm install`
 - **Check**: Babel configuration is present in package.json
 
 ## AI Agent Instructions
@@ -369,7 +369,7 @@ You can verify the installation sequence works by:
 To recreate this app, an AI agent should:
 
 1. **Follow the exact installation sequence** documented here
-2. **Use yarn, not npm** for consistency with Shakapacker
+2. **Use npm** as the default package manager
 3. **Create separate bundles** for each component to demonstrate isolation
 4. **Include navigation** between components to show routing
 5. **Add proper styling** to make the demo visually appealing

@@ -13,7 +13,7 @@ export NODE_ENV=production
 
 # Install production dependencies
 bundle install --without development test
-yarn install --production=false  # Install all deps including dev ones for building
+npm install  # Install all deps including dev ones for building
 
 # Precompile assets (includes webpack build)
 bundle exec rails assets:precompile

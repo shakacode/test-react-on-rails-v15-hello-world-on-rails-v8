@@ -50,18 +50,18 @@ The `rails shakapacker:install` command creates the initial `package.json` file,
 
 **Solution:** Stick to one package manager consistently:
 ```bash
-# If using Yarn (recommended with Shakapacker):
-yarn install
-
-# If using NPM:
+# If using NPM (default):
 npm install
+
+# If using Yarn:
+yarn install
 ```
 
 **Check for conflicts:**
 ```bash
 # Remove conflicting lock files
+rm -f yarn.lock         # If using NPM (default)
 rm -f package-lock.json  # If using Yarn
-rm -f yarn.lock         # If using NPM
 ```
 
 ### Issue: Node.js Version Compatibility
@@ -217,7 +217,7 @@ default:
 2. **Update dependencies:**
    ```bash
    bundle update react-on-rails
-   yarn upgrade
+   npm update
    ```
 
 ### Issue: CSS Not Loading
@@ -259,7 +259,7 @@ When reporting issues, include this information:
 # System Information
 ruby --version
 node --version
-yarn --version
+npm --version
 
 # Gem versions
 bundle list | grep -E "(react-on-rails|shakapacker|rails)"

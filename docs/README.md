@@ -7,7 +7,7 @@ This application demonstrates React on Rails v15's **file-system-based automated
 ## 🚀 Quick Start
 
 1. **Clone**: `git clone https://github.com/shakacode/test-react-on-rails-v15-hello-world-on-rails-v8.git`
-2. **Install dependencies**: `bundle && yarn`
+2. **Install dependencies**: `bundle && npm install`
 3. **Generate component packs**: `bundle exec rake react_on_rails:generate_packs`
 4. **Start development server**: `./bin/dev`
 5. **Visit the demo**: http://localhost:3000
@@ -45,7 +45,7 @@ This application demonstrates React on Rails v15's **file-system-based automated
 
 - `bundle exec rake react_on_rails:generate_packs` - Regenerate webpack entries
 - `./bin/dev` - Start Rails + webpack dev servers
-- `yarn run build` - Build production bundles
+- `npm run build` - Build production bundles
 - `rake lint` - Run all linters (ESLint + RuboCop)
 
 ## 📊 Bundle Analysis (Real Performance Data)

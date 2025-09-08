@@ -49,7 +49,7 @@ git clone https://github.com/shakacode/test-react-on-rails-v15-hello-world-on-ra
 cd test-react-on-rails-v15-hello-world-on-rails-v8
 
 # Install dependencies
-bundle install && yarn install
+bundle install && npm install
 
 # Generate component webpack entries
 bundle exec rake react_on_rails:generate_packs
