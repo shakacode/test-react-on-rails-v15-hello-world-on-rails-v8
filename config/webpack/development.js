@@ -3,7 +3,7 @@
 
 const { devServer, inliningCss } = require('shakapacker');
 
-const webpackConfig = require('./webpackConfig');
+const generateWebpackConfigs = require('./generateWebpackConfigs');
 
 const developmentEnvOnly = (clientWebpackConfig, _serverWebpackConfig) => {
   // plugins
@@ -19,4 +19,4 @@ const developmentEnvOnly = (clientWebpackConfig, _serverWebpackConfig) => {
   }
 };
 
-module.exports = webpackConfig(developmentEnvOnly);
+module.exports = generateWebpackConfigs(developmentEnvOnly);

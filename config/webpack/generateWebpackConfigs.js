@@ -4,7 +4,7 @@
 const clientWebpackConfig = require('./clientWebpackConfig');
 const serverWebpackConfig = require('./serverWebpackConfig');
 
-const webpackConfig = (envSpecific) => {
+const generateWebpackConfigs = (envSpecific) => {
   const clientConfig = clientWebpackConfig();
   const serverConfig = serverWebpackConfig();
 
@@ -34,4 +34,4 @@ const webpackConfig = (envSpecific) => {
   return result;
 };
 
-module.exports = webpackConfig;
+module.exports = generateWebpackConfigs;
