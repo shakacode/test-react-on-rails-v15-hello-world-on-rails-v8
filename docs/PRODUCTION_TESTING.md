@@ -76,11 +76,6 @@ public/packs/
 
 Rails automatically includes CSS files in the `<head>`:
 
-```erb
-<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-<%= javascript_pack_tag "application", defer: true %>
-```
-
 ## Verifying the Fix
 
 ### 1. Check Asset Compilation

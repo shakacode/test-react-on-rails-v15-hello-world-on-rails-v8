@@ -131,9 +131,7 @@ Both components support SSR with different strategies:
 ### Deployment
 
 The generated packs in `app/javascript/packs/generated/` should be:
-- **Committed to git** for deployment consistency
-- **Re-generated** when components change
-- **Validated** during CI/CD pipeline
+- **Re-generated** during deployments.
 
 ### Monitoring
 

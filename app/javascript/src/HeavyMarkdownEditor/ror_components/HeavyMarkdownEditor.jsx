@@ -152,7 +152,7 @@ const HeavyMarkdownEditor = (props) => {
           ← Back to Lightweight HelloWorld
         </a>
         <div className={style.bundleInfo}>
-          <strong>Bundle Impact:</strong> This component adds 1.1MB of markdown libraries (26.5KB component + 1,081KB dependencies)
+          <strong>Bundle Impact:</strong> Heavy component with markdown libraries (~120KB transferred, 385KB resources in production)
         </div>
         {props.title && (
           <div className={style.bundleInfo} style={{marginTop: '0.5rem', fontSize: '0.85rem'}}>

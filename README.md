@@ -70,9 +70,8 @@ This demo includes comprehensive documentation for both developers and AI coding
 
 ## ✨ Features Demonstrated
 
-- ✅ **Auto-Registration** - Zero manual `ReactOnRails.register()` calls needed
+- ✅ **Auto-Registration** - Zero manual `ReactOnRails.register()` and `append_javascript_pack_tag` calls needed due to **File-System Based Detection** - Components auto-discovered from directory structure
 - ✅ **Bundle Splitting** - Lightweight (12.5KB) vs Heavy (1.1MB+) component demos
-- ✅ **File-System Based Detection** - Components auto-discovered from directory structure
 - ✅ **Server-Side Rendering** - Both components work with SSR enabled
 - ✅ **Modern Development Tools** - Enhanced `bin/dev` script with 3 modes
 - ✅ **Production-Ready Patterns** - Dynamic imports, skeleton loaders, CSS modules

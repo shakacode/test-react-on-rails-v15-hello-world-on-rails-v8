@@ -18,7 +18,7 @@ ERROR: package.json not found
 rails new my_app --skip-javascript
 cd my_app
 bundle add shakapacker
-bundle add react-on-rails  # ← TOO EARLY!
+bundle add react_on_rails  # ← TOO EARLY!
 rails shakapacker:install   # Creates package.json but React on Rails already failed
 rails generate react_on_rails:install  # ← FAILS!
 ```
@@ -29,7 +29,7 @@ rails new my_app --skip-javascript
 cd my_app
 bundle add shakapacker
 rails shakapacker:install   # ← Creates package.json FIRST
-bundle add react-on-rails   # Now package.json exists
+bundle add react_on_rails   # Now package.json exists
 rails generate react_on_rails:install  # ← SUCCESS!
 ```
 

@@ -17,42 +17,75 @@ def generate_packs
   end
 end
 
-def run_production_like
-  puts "🏭 Starting production-like development server..."
+def clean_assets
+  puts "🧹 Cleaning old Shakapacker assets..."
+  system "bundle exec rake shakapacker:clobber"
+  
+  unless $?.success?
+    puts "⚠️  Asset cleanup failed, continuing anyway..."
+  else
+    puts "✅ Old assets cleaned successfully"
+  end
+end
+
+def run_production_assets
+  puts "🏭 Starting development server with production assets..."
+  puts "   - Cleaning old assets with Shakapacker"
   puts "   - Generating React on Rails packs"
   puts "   - Precompiling assets with production optimizations"
-  puts "   - Running Rails server on port 3001"
+  puts "   - Running Rails server on port 3001 (development environment)"
+  puts "   - SSL automatically disabled (development environment)"
   puts "   - No HMR (Hot Module Replacement)"
   puts "   - CSS extracted to separate files (no FOUC)"
+  puts "   - Using overmind/foreman for process management"
   puts ""
   puts "💡 Access at: http://localhost:3001"
   puts ""
   
+  # Clean old assets first
+  clean_assets
+  
   # Generate React on Rails packs first
   generate_packs
   
-  # Precompile assets in production mode
-  puts "🔨 Precompiling assets..."
+  # Precompile assets in production mode for optimization
+  puts "🔨 Precompiling assets with production optimizations..."
   system "RAILS_ENV=production NODE_ENV=production bundle exec rails assets:precompile"
   
   if $?.success?
     puts "✅ Assets precompiled successfully"
-    puts "🚀 Starting Rails server in production mode..."
+    puts "🚀 Starting processes with development environment..."
+    puts "   (Using production-optimized assets but development Rails config)"
     puts ""
-    puts "Press Ctrl+C to stop the server"
-    puts "To clean up: rm -rf public/packs && bin/dev"
+    puts "🔒 SSL automatically disabled (development environment)"
     puts ""
     
-    # Start Rails in production mode
-    system "RAILS_ENV=production bundle exec rails server -p 3001"
+    if installed? "overmind"
+      system "RAILS_ENV=development overmind start -f Procfile.dev-prod-assets"
+    elsif installed? "foreman"
+      system "RAILS_ENV=development foreman start -f Procfile.dev-prod-assets"
+    else
+      puts "⚠️  overmind/foreman not found, falling back to direct Rails server..."
+      puts "   For production apps with background jobs, install overmind or foreman"
+      puts ""
+      puts "Press Ctrl+C to stop the server"
+      puts ""
+      system "RAILS_ENV=development bundle exec rails server -p 3001"
+    end
   else
     puts "❌ Asset precompilation failed"
     exit 1
   end
+rescue Errno::ENOENT
+  warn <<~MSG
+    ERROR:
+    Please ensure `Procfile.dev-prod-assets` exists in your project!
+  MSG
+  exit!
 end
 
-def run_static_development
-  puts "⚡ Starting development server with static assets..."
+def run_dev_assets
+  puts "⚡ Starting development server with development assets..."
   puts "   - Generating React on Rails packs"
   puts "   - Using shakapacker --watch (no HMR)"
   puts "   - CSS extracted to separate files (no FOUC)"
@@ -66,9 +99,9 @@ def run_static_development
   generate_packs
   
   if installed? "overmind"
-    system "overmind start -f Procfile.dev-static"
+    system "overmind start -f Procfile.dev-static-assets"
   elsif installed? "foreman"
-    system "foreman start -f Procfile.dev-static"
+    system "foreman start -f Procfile.dev-static-assets"
   else
     warn <<~MSG
       NOTICE:
@@ -79,7 +112,7 @@ def run_static_development
 rescue Errno::ENOENT
   warn <<~MSG
     ERROR:
-    Please ensure `Procfile.dev-static` exists in your project!
+    Please ensure `Procfile.dev-static-assets` exists in your project!
   MSG
   exit!
 end
@@ -97,19 +130,18 @@ rescue Errno::ENOENT
 end
 
 # Check for arguments
-if ARGV[0] == "production-assets" || ARGV[0] == "prod"
-  run_production_like
-elsif ARGV[0] == "static"
-  run_static_development
+if ARGV[0] == "prod-assets"
+  run_production_assets
+elsif ARGV[0] == "dev-assets"
+  run_dev_assets
 elsif ARGV[0] == "help" || ARGV[0] == "--help" || ARGV[0] == "-h"
   puts <<~HELP
     Usage: bin/dev [command]
     
     Commands:
       (none) / hmr        Start development server with HMR (default)
-      static              Start development server with static assets (no HMR, no FOUC)
-      production-assets   Start with production-optimized assets (no HMR)
-      prod                Alias for production-assets
+      dev-assets          Start development server with development assets (no HMR, no FOUC)  
+      prod-assets         Start development server with production assets (optimized)
       help                Show this help message
       
     HMR Development mode (default):
@@ -120,20 +152,22 @@ elsif ARGV[0] == "help" || ARGV[0] == "--help" || ARGV[0] == "-h"
     • Fast recompilation
     • Access at: http://localhost:3000
     
-    Static development mode:
-    • No HMR (static assets with auto-recompilation)
+    Development assets mode:
+    • No HMR (development assets with auto-recompilation)
     • Automatic React on Rails pack generation
     • CSS extracted to separate files (no FOUC)
-    • Development environment (faster builds than production)
-    • Source maps for debugging
+    • Development environment (faster builds, source maps)
+    • Auto-recompiles on file changes
     • Access at: http://localhost:3000
     
-    Production-assets mode:
+    Production assets mode:
+    • Automatic Shakapacker asset cleaning (rake shakapacker:clobber)
     • Automatic React on Rails pack generation
-    • Optimized, minified bundles
+    • Production-optimized, minified bundles
     • Extracted CSS files (no FOUC)
-    • No HMR (static assets)
-    • Slower recompilation
+    • Development Rails environment (SSL disabled, no config issues)
+    • Uses overmind/foreman for process management (supports Sidekiq, Redis, etc.)
+    • Optimized for performance testing
     • Access at: http://localhost:3001
   HELP
 elsif ARGV[0] == "hmr" || ARGV[0].nil?
